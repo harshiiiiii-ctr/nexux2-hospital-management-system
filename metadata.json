@@ -1,0 +1,6 @@
+{
+  "name": "MediCare Hospital Management System",
+  "description": "Comprehensive, responsive hospital management system with patient registration, syndrome-based specialist recommendation, appointment scheduling, billing, and role-based access for Admin, Receptionist, and Doctor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
