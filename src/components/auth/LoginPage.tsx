@@ -17,9 +17,11 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import { HOSPITAL_IMAGES } from '../../assets/images';
+interface LoginPageProps {
+  onSwitchToSwing?: () => void;
+}
 
-export const LoginPage: React.FC = () => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSwing }) => {
   const { login, quickLogin, isLoading } = useAuth();
   const { success, error } = useToast();
 
@@ -62,6 +64,17 @@ export const LoginPage: React.FC = () => {
       {/* Decorative Luminous Glow Elements */}
       <div className="absolute top-10 left-10 w-96 h-96 bg-teal-200/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-200/40 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Switch to Core Java Swing Desktop App Button */}
+      {onSwitchToSwing && (
+        <button
+          onClick={onSwitchToSwing}
+          className="absolute top-4 right-4 z-50 flex items-center gap-2 px-3.5 py-2 bg-slate-900/90 hover:bg-slate-900 text-teal-200 hover:text-white rounded-full text-xs font-bold shadow-lg border border-teal-400/80 transition-all hover:scale-105 cursor-pointer backdrop-blur-md"
+        >
+          <span className="text-sm">☕</span>
+          <span>Open Core Java Swing Desktop View</span>
+        </button>
+      )}
 
       {/* Main Container: Split Modern Hospital Presentation Card */}
       <div className="max-w-4xl w-full bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-teal-100/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12 z-10">

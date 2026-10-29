@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { DatabaseSchema, getInitialSeedData } from './seedData.js';
-import { Doctor, Patient, Appointment, Bill, Receptionist, User, Bed, SqlLogEntry, AppointmentStatus } from '../src/types.js';
+import { getInitialSeedData } from './seedData.ts';
+import type { DatabaseSchema } from './seedData.ts';
+import type { Doctor, Patient, Appointment, Bill, Receptionist, User, Bed, SqlLogEntry, AppointmentStatus } from '../src/types.ts';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'hospital_db.json');

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Doctor, Patient, Appointment, Bill, Receptionist, User, Bed, SqlLogEntry } from '../src/types.js';
+import type { Doctor, Patient, Appointment, Bill, Receptionist, User, Bed, SqlLogEntry } from '../src/types.ts';
 
 export interface DatabaseSchema {
   users: (User & { password: string })[];

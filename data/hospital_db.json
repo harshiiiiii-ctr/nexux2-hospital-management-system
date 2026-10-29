@@ -610,5 +610,144 @@
       "paymentStatus": "Paid",
       "paymentMethod": "UPI"
     }
+  ],
+  "beds": [
+    {
+      "id": "bed-1",
+      "bedNumber": "BED-101",
+      "ward": "General Ward",
+      "dailyCharge": 800,
+      "status": "Occupied",
+      "patientId": "pat-2",
+      "patientName": "Sunita Roy",
+      "allocatedDate": "2026-10-28"
+    },
+    {
+      "id": "bed-2",
+      "bedNumber": "BED-102",
+      "ward": "General Ward",
+      "dailyCharge": 800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-3",
+      "bedNumber": "BED-103",
+      "ward": "General Ward",
+      "dailyCharge": 800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-4",
+      "bedNumber": "BED-104",
+      "ward": "General Ward",
+      "dailyCharge": 800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-5",
+      "bedNumber": "ICU-201",
+      "ward": "ICU / Critical Care",
+      "dailyCharge": 3500,
+      "status": "Occupied",
+      "patientId": "pat-5",
+      "patientName": "Arjun Deshmukh",
+      "allocatedDate": "2026-10-27"
+    },
+    {
+      "id": "bed-6",
+      "bedNumber": "ICU-202",
+      "ward": "ICU / Critical Care",
+      "dailyCharge": 3500,
+      "status": "Available"
+    },
+    {
+      "id": "bed-7",
+      "bedNumber": "ICU-203",
+      "ward": "ICU / Critical Care",
+      "dailyCharge": 3500,
+      "status": "Available"
+    },
+    {
+      "id": "bed-8",
+      "bedNumber": "SP-301",
+      "ward": "Semi-Private Room",
+      "dailyCharge": 1800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-9",
+      "bedNumber": "SP-302",
+      "ward": "Semi-Private Room",
+      "dailyCharge": 1800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-10",
+      "bedNumber": "SP-303",
+      "ward": "Semi-Private Room",
+      "dailyCharge": 1800,
+      "status": "Available"
+    },
+    {
+      "id": "bed-11",
+      "bedNumber": "EMG-01",
+      "ward": "Emergency Daycare",
+      "dailyCharge": 1200,
+      "status": "Available"
+    },
+    {
+      "id": "bed-12",
+      "bedNumber": "EMG-02",
+      "ward": "Emergency Daycare",
+      "dailyCharge": 1200,
+      "status": "Available"
+    }
+  ],
+  "sqlLogs": [
+    {
+      "id": "sql-1793309402574-305",
+      "timestamp": "21:30:02",
+      "type": "SELECT",
+      "table": "patients, beds, bills, appointments",
+      "sql": "SELECT COUNT(*) AS total_patients, \n       (SELECT COUNT(*) FROM patients WHERE admission_status='Admitted') AS admitted_count, \n       (SELECT COUNT(*) FROM beds WHERE status='Available') AS available_beds, \n       (SELECT SUM(total_amount) FROM bills WHERE payment_status='Paid') AS total_revenue;",
+      "description": "Monitor Operations: Dashboard aggregation query for patients, beds, and revenue",
+      "executionTimeMs": 12
+    },
+    {
+      "id": "sql-1793309378292-81",
+      "timestamp": "21:29:38",
+      "type": "SELECT",
+      "table": "patients, beds, bills, appointments",
+      "sql": "SELECT COUNT(*) AS total_patients, \n       (SELECT COUNT(*) FROM patients WHERE admission_status='Admitted') AS admitted_count, \n       (SELECT COUNT(*) FROM beds WHERE status='Available') AS available_beds, \n       (SELECT SUM(total_amount) FROM bills WHERE payment_status='Paid') AS total_revenue;",
+      "description": "Monitor Operations: Dashboard aggregation query for patients, beds, and revenue",
+      "executionTimeMs": 12
+    },
+    {
+      "id": "log-1",
+      "timestamp": "21:29:30",
+      "type": "SELECT",
+      "table": "patients, beds",
+      "sql": "SELECT COUNT(*) AS total_admitted, (SELECT COUNT(*) FROM beds WHERE status='Available') AS available_beds FROM patients WHERE admission_status = 'Admitted';",
+      "executionTimeMs": 12,
+      "description": "Fetch hospital inpatient occupancy and bed availability"
+    },
+    {
+      "id": "log-2",
+      "timestamp": "21:28:30",
+      "type": "SELECT",
+      "table": "appointments",
+      "sql": "SELECT a.*, p.name AS patient_name, d.name AS doctor_name FROM appointments a JOIN patients p ON a.patient_id = p.id JOIN doctors d ON a.doctor_id = d.id WHERE a.date = '2026-10-29' ORDER BY a.time ASC;",
+      "executionTimeMs": 18,
+      "description": "Load today's appointment consultation schedule"
+    },
+    {
+      "id": "log-3",
+      "timestamp": "21:27:30",
+      "type": "UPDATE",
+      "table": "beds",
+      "sql": "UPDATE beds SET status = 'Occupied', patient_id = 'pat-2', allocated_date = '2026-10-13' WHERE id = 'bed-1';",
+      "executionTimeMs": 15,
+      "description": "Allocate General Ward Bed-101 to admitted cardiac patient"
+    }
   ]
 }

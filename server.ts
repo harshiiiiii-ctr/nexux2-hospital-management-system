@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { db } from './server/db.js';
+import { db } from './server/db.ts';
 
 dotenv.config();
 

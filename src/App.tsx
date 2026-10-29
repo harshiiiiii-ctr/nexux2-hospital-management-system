@@ -15,12 +15,16 @@ import { BillingPage } from './components/billing/BillingPage';
 import { ReportsPage } from './components/reports/ReportsPage';
 import { StaffManagementPage } from './components/admin/StaffManagementPage';
 import { JavaMiniProjectModal } from './components/common/JavaMiniProjectModal';
+import { JavaSwingDesktopApp } from './components/swing/JavaSwingDesktopApp';
 import { Doctor, Patient, Appointment, Bill, Receptionist } from './types';
 import { api } from './api';
 
 function MainApp() {
   const { user, isLoading: authLoading } = useAuth();
   const { error } = useToast();
+
+  // Core Java Swing Desktop App Mode (Active by default for college mini-project)
+  const [isSwingMode, setIsSwingMode] = useState(true);
 
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -127,6 +131,15 @@ function MainApp() {
     });
   };
 
+  // Render Core Java Swing Desktop App (Active by default for college evaluation)
+  if (isSwingMode) {
+    return (
+      <JavaSwingDesktopApp
+        onSwitchToWebPortal={() => setIsSwingMode(false)}
+      />
+    );
+  }
+
   if (authLoading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-800">
@@ -141,7 +154,7 @@ function MainApp() {
   }
 
   if (!user) {
-    return <LoginPage />;
+    return <LoginPage onSwitchToSwing={() => setIsSwingMode(true)} />;
   }
 
   return (
@@ -151,6 +164,7 @@ function MainApp() {
         onRefreshData={loadData}
         onSelectTab={setActiveTab}
         onOpenInfo={handleOpenInfo}
+        onSwitchToSwing={() => setIsSwingMode(true)}
       />
 
       <div className="flex-1 flex overflow-hidden">
@@ -275,6 +289,16 @@ function MainApp() {
         isOpen={isJavaModalOpen}
         onClose={() => setIsJavaModalOpen(false)}
       />
+
+      {/* Floating Return to Core Java Swing Desktop Button */}
+      <button
+        onClick={() => setIsSwingMode(true)}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-teal-800 to-slate-900 hover:from-teal-700 hover:to-slate-800 text-white rounded-full shadow-2xl border-2 border-teal-400 font-bold text-xs transition-all hover:scale-105 cursor-pointer"
+        title="Switch to Core Java Desktop Application (JFrame & JTable)"
+      >
+        <span className="text-base">☕</span>
+        <span>Open Core Java Swing Desktop View</span>
+      </button>
     </div>
   );
 }

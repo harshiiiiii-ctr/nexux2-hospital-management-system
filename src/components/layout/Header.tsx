@@ -31,13 +31,15 @@ interface HeaderProps {
   onRefreshData?: () => void;
   onSelectTab?: (tab: ActiveTab) => void;
   onOpenInfo?: (title: string, category: string, content: React.ReactNode) => void;
+  onSwitchToSwing?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
   onToggleSidebar, 
   onRefreshData,
   onSelectTab,
-  onOpenInfo
+  onOpenInfo,
+  onSwitchToSwing
 }) => {
   const { user, doctor, logout, quickLogin } = useAuth();
   const { success, error, info } = useToast();
@@ -350,8 +352,20 @@ export const Header: React.FC<HeaderProps> = ({
 
         </nav>
 
-        {/* Right Actions: Quick Switcher, Reset Demo, User Profile, Logout */}
+        {/* Right Actions: Java Swing Mode, Quick Switcher, Reset Demo, User Profile, Logout */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Switch to Core Java Swing Desktop App Button */}
+          {onSwitchToSwing && (
+            <button
+              onClick={onSwitchToSwing}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-teal-900 bg-teal-50 hover:bg-teal-100 border border-teal-300 transition-colors shadow-2xs cursor-pointer"
+              title="Switch to Core Java Desktop Application (JFrame & JTable)"
+            >
+              <span className="text-sm">☕</span>
+              <span className="hidden sm:inline">Java Swing View</span>
+            </button>
+          )}
+
           {/* Quick Role Switcher Pill */}
           <div className="relative">
             <button

@@ -272,5 +272,10 @@ export const api = {
       method: 'DELETE'
     });
     return handleResponse(res);
+  },
+
+  getJavaProjectFiles: async (): Promise<{ name: string; path: string; content: string; category: string }[]> => {
+    const res = await fetch(`${API_BASE}/java-project/files`);
+    return handleResponse(res);
   }
 };
